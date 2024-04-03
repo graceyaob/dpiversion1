@@ -10,12 +10,14 @@ class ChampSelect extends StatefulWidget {
     required this.readOnly,
     required this.formulaireConsultation,
     required this.onValueChanged,
+    this.validator,
   });
   final List<String> items;
   final String libelle;
   final bool readOnly;
   final bool formulaireConsultation;
   final void Function(String?) onValueChanged;
+  final FormFieldValidator<String>? validator;
 
   @override
   State<ChampSelect> createState() => _ChampSelectState();
@@ -26,9 +28,18 @@ class _ChampSelectState extends State<ChampSelect> {
 
   @override
   void initState() {
-    choix = widget.items[0];
+    choix = widget.items.isNotEmpty ? widget.items[0] : null;
     super.initState();
   }
+
+  /*@override
+  void didUpdateWidget(covariant ChampSelect oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // Réinitialiser la valeur sélectionnée lorsque le widget est mis à jour
+    setState(() {
+      choix = widget.items.isNotEmpty ? widget.items[0] : null;
+    });
+  }*/
 
   // Fonction de validation pour vérifier si une valeur a été sélectionnée
   String? validateform(String? value) {
@@ -83,7 +94,7 @@ class _ChampSelectState extends State<ChampSelect> {
                   errorBorder: Config.errorBorder,
                   enabledBorder: Config.outLinedBorder)
               : null,
-          validator: validateform,
+          validator: widget.validator,
         )
         /*DropdownTextfield(
           dropDownList: widget.items,

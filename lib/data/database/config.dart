@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dpiversion1/components/PagesCarnet/constantes.dart';
 import 'package:dpiversion1/data/models/models_database.dart';
 import 'package:hive_flutter/hive_flutter.dart';

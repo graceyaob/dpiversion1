@@ -166,15 +166,20 @@ class _LoginState extends State<Login> {
                                   "username": _isnController.text,
                                   "password": _passwordController.text
                                 };
+
                                 Patient databdlocal =
                                     await Database().getInfoBoxPatient();
+                                print("databdlocal:$databdlocal");
                                 print("data: ${databdlocal.firstLogin}");
 
                                 //si first login == true alors tu appelles l'Api du back(internet)
                                 if (databdlocal.firstLogin == true) {
                                   sortir = await Api()
                                       .postApiUn(Api.loginUrl(), data);
+                                  print("hello");
+
                                   if (sortir.status == 200) {
+                                    print("bonsoir");
                                     responseData = sortir.data!;
                                     responseData['username'] =
                                         _isnController.text;
@@ -191,7 +196,8 @@ class _LoginState extends State<Login> {
                                     Navigator.of(context)
                                         .pushReplacementNamed("modifier");
                                   } else {
-                                    print(data);
+                                    print("bonjour");
+                                    print("user $data");
                                     setState(() {
                                       isLoading = false;
                                     });

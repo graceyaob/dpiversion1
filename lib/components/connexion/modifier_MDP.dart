@@ -103,7 +103,7 @@ class _LoginModifState extends State<LoginModif> {
                                 isLoading = false;
                               });
                               showAlertDialog(context,
-                                  "Les mots de passe sont différents.");
+                                  "Les mots de passe sont différents. vous devez saisir les meme mots de passe pour le nouveau et la confirmation");
                             } /*else if (_nouveauPasswordController.text ==
                               decryptAES(patient.password)) {
                             showAlertDialog(context,
@@ -161,18 +161,28 @@ class _LoginModifState extends State<LoginModif> {
   Widget password(
       TextEditingController controller, String label, String hintText) {
     return TextFormField(
-        controller: controller,
-        keyboardType: TextInputType.visiblePassword,
-        obscureText: osbcurePass,
-        cursorColor: Colors.black12,
-        decoration: InputDecoration(
-          border: Config.outLinedBorder,
-          focusedBorder: Config.focusBorder,
-          errorBorder: Config.errorBorder,
-          enabledBorder: Config.outLinedBorder,
-          hintText: hintText,
-          labelText: label,
-          alignLabelWithHint: true,
-        ));
+      controller: controller,
+      keyboardType: TextInputType.visiblePassword,
+      obscureText: osbcurePass,
+      cursorColor: Colors.black12,
+      decoration: InputDecoration(
+        border: Config.outLinedBorder,
+        focusedBorder: Config.focusBorder,
+        errorBorder: Config.errorBorder,
+        enabledBorder: Config.outLinedBorder,
+        hintText: hintText,
+        labelText: label,
+        alignLabelWithHint: true,
+      ),
+      validator: _validateField,
+    );
+  }
+
+  // Méthode de validation pour les champs obligatoires
+  String? _validateField(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Ce champ est obligatoire';
+    }
+    return null;
   }
 }

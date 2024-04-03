@@ -1,3 +1,5 @@
+import 'package:dpiversion1/components/PagesCarnet/information.dart';
+import 'package:dpiversion1/components/PagesCarnet/navBar.dart';
 import 'package:dpiversion1/components/connexion/modifier_MDP.dart';
 import 'package:dpiversion1/components/rendez-vous/formulairerdv.dart';
 import 'package:dpiversion1/components/rendez-vous/priseRDV.dart';
@@ -82,7 +84,8 @@ class MyApp extends StatelessWidget {
         /*"detailRecu": (context) => DetailRecu(
               payementeffectue: false,
             ),*/
-        "punrdv": (context) => const AppointplusPage()
+        "punrdv": (context) => const AppointplusPage(),
+        "info": (context) => NavBar()
       },
     );
   }

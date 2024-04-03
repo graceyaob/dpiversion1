@@ -70,60 +70,44 @@ class _ConstanteState extends State<Constante> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(),
-        body: Container(
-          decoration: BoxDecoration(border: Border.all()),
-          margin: EdgeInsets.only(
-              left: Config.widthSize * 0.02, right: Config.widthSize * 0.02),
-          child: Column(
+    return Container(
+      padding: EdgeInsets.only(top: 20),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [Text("Température"), Text("$temperature °")],
+          ),
+          Config.spaceSmall,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [Text("Poids"), Text("$poids Kg")],
+          ),
+          Config.spaceSmall,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [Text("Taille"), Text("$taille cm")],
+          ),
+          Config.spaceSmall,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [Text("IMC"), Text("$imc Kg/m²")],
+          ),
+          Config.spaceSmall,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Card(
-                color: Color(0xFFE9F7FF),
-                child: ListTile(
-                  title: Text(
-                    "Constante",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF3B82F6),
-                        fontSize: Config.widthSize * 0.05),
-                  ),
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [Text("Température"), Text("$temperature °")],
-              ),
-              Config.spaceSmall,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [Text("Poids"), Text("$poids Kg")],
-              ),
-              Config.spaceSmall,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [Text("Taille"), Text("$taille cm")],
-              ),
-              Config.spaceSmall,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [Text("IMC"), Text("$imc Kg/m²")],
-              ),
-              Config.spaceSmall,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text("Tension Arterielle"),
-                  Text("$tensionArterielle mmHg"),
-                ],
-              ),
-              Config.spaceSmall,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [Text("Pouls"), Text("$pouls Btt/mn")],
-              ),
+              Text("Tension Arterielle"),
+              Text("$tensionArterielle mmHg"),
             ],
           ),
-        ));
+          Config.spaceSmall,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [Text("Pouls"), Text("$pouls Btt/mn")],
+          ),
+        ],
+      ),
+    );
   }
 }

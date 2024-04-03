@@ -165,6 +165,7 @@ class _FormulaireRdvPageState extends State<FormulaireRdvPage> {
                   }
                 });
               },
+              validator: _validateField,
             ),
             ChampSelect(
               items: itemscentres,
@@ -199,6 +200,7 @@ class _FormulaireRdvPageState extends State<FormulaireRdvPage> {
                   }
                 });
               },
+              validator: _validateField,
             ),
             ChampSelect(
               items: itemsServices,
@@ -251,6 +253,7 @@ class _FormulaireRdvPageState extends State<FormulaireRdvPage> {
                   }
                 });
               },
+              validator: _validateField,
             ),
             ChampSelect(
               items: itemsMedecins,
@@ -268,6 +271,7 @@ class _FormulaireRdvPageState extends State<FormulaireRdvPage> {
                   }
                 });
               },
+              validator: _validateField,
             ),
             ChampSelect(
               items: itemsPrestations,
@@ -286,6 +290,7 @@ class _FormulaireRdvPageState extends State<FormulaireRdvPage> {
                   }
                 });
               },
+              validator: _validateField,
             ),
             Text("Prix de la prestation"),
             TextField(
@@ -316,16 +321,17 @@ class _FormulaireRdvPageState extends State<FormulaireRdvPage> {
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
                     Map body = {
-                      "datePrevue": "2024-03-28",
+                      "datePrevue": date.toString(),
                       "heureDebut": "08:58",
                       "heureFin": "09:01",
                       "priorite": "N",
                       "typeRDV": "N",
                       "motif": "test",
                       "commentaire": "test",
-                      "patient": "fcdd4a35-cb16-4f88-ac04-9983f17bc7be",
-                      "medecin": "fff91868-b188-43e2-866e-cb84525ed5ad",
-                      "service": idService
+                      "rendez-vous": false,
+                      "patient": idPatient,
+                      "medecin": idmedecin,
+                      "service": idService,
                     };
 
                     sortir = await Api().postApiDeux(Api.postRdv(), body);
@@ -336,8 +342,7 @@ class _FormulaireRdvPageState extends State<FormulaireRdvPage> {
                           context: context,
                           builder: (BuildContext) {
                             return AlertDialog(
-                              content: Text(
-                                  "N° de la facture:${data?["fichepaiement"]["reference"]} pour la consultation en ${data?["fichepaiement"]["service"]["libelle"]}"),
+                              content: Text("N° de la facture:$data "),
                               actions: [
                                 Row(
                                   mainAxisAlignment:
@@ -399,6 +404,14 @@ class _FormulaireRdvPageState extends State<FormulaireRdvPage> {
         ),
       ),
     );
+  }
+
+  // Méthode de validation pour les champs obligatoires
+  String? _validateField(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Ce champ est obligatoire';
+    }
+    return null;
   }
 }
 

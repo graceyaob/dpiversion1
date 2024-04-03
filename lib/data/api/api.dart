@@ -6,11 +6,8 @@ import 'package:dpiversion1/data/models/models_database.dart';
 import '../database/config.dart';
 import '../models/models_api.dart';
 
-Dio dio = Dio(BaseOptions(connectTimeout: Duration(seconds: 10)));
 Map<String, dynamic> data = Map();
-String access = "";
-String refresh = "";
-int heureConnexionenMinutes = 0;
+Dio dio = Dio();
 
 class Api {
   static String messageErreur =
@@ -64,12 +61,12 @@ class Api {
       "$baseUrl/patients/v1/fichepaiements/get_fiche_by_patient_validees/$idPatient/";
   static String getMedecinUrl(String idService) =>
       "$baseUrl/accueils/v1/professionnels/get_professionel_by_service/$idService/";
-  static String postRdv() => "$baseUrl/patients/v1/rendezvous/";
+  static String postRdv() => "$baseUrl/patients/v1/rdv/";
 
   // 1er type de POST sans utiliser de token
   Future<ResponseRequest> postApiUn(String url, Map data) async {
     try {
-      final response = await Dio().post(
+      final response = await dio.post(
         url,
         data: data,
         options: Options(
@@ -122,7 +119,7 @@ class Api {
     try {
       print("body ${data}");
       Patient patient = await Database().getInfoBoxPatient();
-      final response = await Dio().post(
+      final response = await dio.post(
         url,
         data: data,
         options: Options(

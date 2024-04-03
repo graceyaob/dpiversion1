@@ -25,6 +25,11 @@ class _PaiementState extends State<Paiement> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Payer ici"),
+        leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.of(context).pop();
+            }),
       ),
       body: SafeArea(
         child: Padding(

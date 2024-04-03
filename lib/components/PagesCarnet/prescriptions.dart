@@ -62,60 +62,47 @@ class _PrescriptionsState extends State<Prescriptions> {
       return ordonnance;
     }
 
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            Cadre(titre: "Prescription"),
-            Expanded(
-              child: Container(
-                width: Config.widthSize * 0.8,
-                margin: const EdgeInsets.all(16.0),
-                padding: const EdgeInsets.all(16.0),
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black),
-                  borderRadius: BorderRadius.circular(10.0),
-                  color: Colors.white,
-                ),
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  child: SizedBox(
-                    width: Config.widthSize * 1.0,
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: SizedBox(
-                        height: Config.heightSize * 1,
-                        //la vue ordonnance
-                        child: FutureBuilder<List<Widget>>(
-                          future: buildPrescriptions(prescriptions),
-                          builder: (BuildContext context,
-                              AsyncSnapshot<List<Widget>> snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              return CircularProgressIndicator();
-                            } else if (snapshot.hasError) {
-                              return Text("Erreur: ${snapshot.error}");
-                            } else {
-                              if (unePrescription) {
-                                return Column(
-                                  children: snapshot.data!,
-                                );
-                              } else {
-                                return Text(
-                                  "Aucune prescription disponible",
-                                  style: TextStyle(fontSize: 16),
-                                );
-                              }
-                            }
-                          },
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+    return Container(
+      margin: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(16.0),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.black),
+        borderRadius: BorderRadius.circular(10.0),
+        color: Colors.white,
+      ),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: SizedBox(
+          width: Config.widthSize * 1.0,
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: SizedBox(
+              height: Config.heightSize * 1,
+              //la vue ordonnance
+              child: FutureBuilder<List<Widget>>(
+                future: buildPrescriptions(prescriptions),
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<Widget>> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return CircularProgressIndicator();
+                  } else if (snapshot.hasError) {
+                    return Text("Erreur: ${snapshot.error}");
+                  } else {
+                    if (unePrescription) {
+                      return Column(
+                        children: snapshot.data!,
+                      );
+                    } else {
+                      return Text(
+                        "Aucune prescription disponible",
+                        style: TextStyle(fontSize: 16),
+                      );
+                    }
+                  }
+                },
               ),
             ),
-          ],
+          ),
         ),
       ),
     );

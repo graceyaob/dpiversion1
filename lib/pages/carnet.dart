@@ -1,3 +1,4 @@
+import 'package:dpiversion1/components/PagesCarnet/information.dart';
 import 'package:dpiversion1/components/function404.dart';
 import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -101,7 +102,8 @@ class _CarnetState extends State<Carnet> {
             ),
             trailing: TextButton(
               onPressed: () async {
-                Navigator.of(context).pushNamed("baseCarnet");
+                //Navigator.of(context).pushNamed("baseCarnet");
+                Navigator.of(context).pushNamed("info");
                 //supprimer ma base de donnée tempoeaire
                 await MySharedPreferences.clearData();
                 // sauvegarder les inforamtion de la fiche de paiement

@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:dpiversion1/components/button.dart';
 import 'package:dpiversion1/components/champsSelection.dart';
 import 'package:dpiversion1/data/api/api.dart';
@@ -38,6 +40,11 @@ class _ConsultationPageState extends State<ConsultationPage> {
     super.initState();
     loadVilles();
     loadIdPatient();
+    setState(() {
+      itemsPrestations = [""];
+      itemsServices = [""];
+      itemscentres = [""];
+    });
   }
 
   void loadVilles() {
@@ -147,6 +154,7 @@ class _ConsultationPageState extends State<ConsultationPage> {
                   }
                 });
               },
+              validator: _validateField,
             ),
             ChampSelect(
               items: itemscentres,
@@ -181,6 +189,7 @@ class _ConsultationPageState extends State<ConsultationPage> {
                   }
                 });
               },
+              validator: _validateField,
             ),
             ChampSelect(
               items: itemsServices,
@@ -213,6 +222,7 @@ class _ConsultationPageState extends State<ConsultationPage> {
                   }
                 });
               },
+              validator: _validateField,
             ),
             ChampSelect(
               items: itemsPrestations,
@@ -231,6 +241,7 @@ class _ConsultationPageState extends State<ConsultationPage> {
                   }
                 });
               },
+              validator: _validateField,
             ),
             Text("Prix de la prestation"),
             TextField(
@@ -322,7 +333,7 @@ class _ConsultationPageState extends State<ConsultationPage> {
                                                             onPressed: () {
                                                               Navigator.of(
                                                                       context)
-                                                                  .pushNamed(
+                                                                  .pushReplacementNamed(
                                                                       "paiement");
                                                             },
                                                             child: Text("Oui")),
@@ -330,7 +341,7 @@ class _ConsultationPageState extends State<ConsultationPage> {
                                                             onPressed: () {
                                                               Navigator.of(
                                                                       context)
-                                                                  .pushNamed(
+                                                                  .pushReplacementNamed(
                                                                       "recu");
                                                             },
                                                             child: Text("Non"))
@@ -357,6 +368,14 @@ class _ConsultationPageState extends State<ConsultationPage> {
         ),
       ),
     );
+  }
+
+  // Méthode de validation pour les champs obligatoires
+  String? _validateField(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Ce champ est obligatoire';
+    }
+    return null;
   }
 }
 

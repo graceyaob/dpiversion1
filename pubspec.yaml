@@ -61,6 +61,7 @@ dependencies:
   searchable_paginated_dropdown: ^1.2.0
   http: ^1.0.0
   flutter_datetime_picker_plus: ^2.1.0
+  sidebar: ^0.0.1
   
   date_time_field: ^0.0.2
 

@@ -1,6 +1,7 @@
 import 'package:dpiversion1/data/api/api.dart';
 import 'package:dpiversion1/data/database/config.dart';
 import 'package:dpiversion1/utils/config.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Interrogatoire extends StatefulWidget {
@@ -70,12 +71,11 @@ class _InterrogatoireState extends State<Interrogatoire> {
         child: Container(
           child: Column(
             children: [
-              Config.spaceSmall,
-              Row(
+              Stack(
                 children: [
                   Container(
-                    width: Config.widthSize * 0.44,
-                    height: Config.heightSize * 0.86,
+                    width: Config.widthSize * 0.42,
+                    height: Config.heightSize * 0.90,
                     decoration: BoxDecoration(
                       color: Color(0xFFEAF7FF), // Couleur du conteneur
 
@@ -92,14 +92,6 @@ class _InterrogatoireState extends State<Interrogatoire> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        IconButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            icon: const Icon(
-                              Icons.arrow_back,
-                              color: Colors.blueAccent,
-                            )),
                         Center(
                           child: Image.asset(
                             "assets/images/point-dinterrogation.png",
@@ -116,8 +108,7 @@ class _InterrogatoireState extends State<Interrogatoire> {
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.only(top: 5.0),
-                    height: Config.heightSize * 0.8157,
+                    padding: EdgeInsets.only(top: 5.0, left: 175),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -134,7 +125,6 @@ class _InterrogatoireState extends State<Interrogatoire> {
                               color: Color(0xFF3B82F6).withOpacity(0.8),
                               fontSize: Config.widthSize * 0.03),
                         ),
-                        Config.spaceSmall,
                         Container(
                           margin: EdgeInsets.all(
                               5.0), // Ajoutez des marges de 10.0 tout autour
