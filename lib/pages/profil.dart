@@ -48,7 +48,11 @@ class _ProfilState extends State<Profil> {
                 if (value == "Mdp") {
                   Navigator.of(context).pushNamed("modifier");
                 } else {
-                  Navigator.of(context).pushNamed("modifInfo");
+                  if (value == "deconnexion") {
+                    Navigator.of(context).pushNamed("login");
+                  } else {
+                    Navigator.of(context).pushNamed("modifInfo");
+                  }
                 }
                 print('Élément sélectionné: $value');
               },
@@ -61,6 +65,10 @@ class _ProfilState extends State<Profil> {
                   PopupMenuItem<String>(
                     value: 'Mdp',
                     child: Text('Modifier le mot de passe'),
+                  ),
+                  PopupMenuItem<String>(
+                    value: 'deconnexion',
+                    child: Text('Deconnecter'),
                   ),
                   // Ajoutez d'autres éléments de menu au besoin
                 ];

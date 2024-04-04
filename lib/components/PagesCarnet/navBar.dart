@@ -5,6 +5,7 @@ import 'package:dpiversion1/components/PagesCarnet/interrogatoire.dart';
 import 'package:dpiversion1/components/PagesCarnet/navigation_model.dart';
 import 'package:dpiversion1/components/PagesCarnet/prescriptions.dart';
 import 'package:dpiversion1/components/imageProfil.dart';
+import 'package:dpiversion1/data/database/config.dart';
 import 'package:dpiversion1/utils/config.dart';
 import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
@@ -28,6 +29,7 @@ class _NavBarState extends State<NavBar> with SingleTickerProviderStateMixin {
   late Animation<double> widthContainer;
   late AnimationController _animationController;
   late int currentSelectedIndex;
+  late String nom;
 
   @override
   void initState() {
@@ -38,6 +40,11 @@ class _NavBarState extends State<NavBar> with SingleTickerProviderStateMixin {
         .animate(_animationController);
     widthContainer =
         Tween<double>(begin: 70, end: 500).animate(_animationController);
+    Database().getInfoBoxPatient().then((value) {
+      setState(() {
+        nom = "${value.nom} ${value.prenoms}";
+      });
+    });
 
     super.initState();
   }
@@ -141,20 +148,19 @@ class _NavBarState extends State<NavBar> with SingleTickerProviderStateMixin {
     );
   }
 
-  int getCurrentSelectedIndex() {
-    print(currentSelectedIndex);
-    return currentSelectedIndex;
+  Widget Bloc() {
+    return ListTile(
+      leading: CircleAvatar(
+          backgroundColor: Colors.white24, child: CadrePhoto(raduis: 20)),
+      title: (widthAnimation.value >= 220)
+          ? Text(
+              nom,
+              style: TextStyle(color: Colors.white, fontSize: 10),
+            )
+          : Text(""),
+      subtitle: (widthAnimation.value >= 220)
+          ? Text("Mon carnet", style: TextStyle(color: Colors.white))
+          : Text(""),
+    );
   }
-}
-
-Widget Bloc() {
-  return ListTile(
-    leading: CircleAvatar(
-        backgroundColor: Colors.white24, child: CadrePhoto(raduis: 20)),
-    title: Text(
-      "Yao",
-      style: TextStyle(color: Colors.white),
-    ),
-    subtitle: Text("Patient", style: TextStyle(color: Colors.white)),
-  );
 }

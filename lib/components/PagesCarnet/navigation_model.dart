@@ -10,9 +10,9 @@ class NavigationModel {
 }
 
 List<NavigationModel> navigationItems = [
-  NavigationModel(title: "constantes", icon: Icons.insert_chart),
-  NavigationModel(title: "Symptomes", icon: Icons.insert_chart),
-  NavigationModel(title: "Examens", icon: Icons.insert_chart),
-  NavigationModel(title: "Diagnostiques", icon: Icons.insert_chart),
-  NavigationModel(title: "Prescriptions", icon: Icons.insert_chart),
+  NavigationModel(title: "constantes", icon: Icons.show_chart),
+  NavigationModel(title: "Symptomes", icon: Icons.self_improvement),
+  NavigationModel(title: "Examens", icon: Icons.assignment),
+  NavigationModel(title: "Diagnostiques", icon: Icons.healing),
+  NavigationModel(title: "Prescriptions", icon: Icons.description),
 ];
