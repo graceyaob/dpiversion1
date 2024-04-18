@@ -21,6 +21,7 @@ class _AppointListeAppState extends State<AppointListeApp> {
     Database().getInfoBoxPatient().then((value) {
       setState(() {
         id = value.id;
+        print(id);
         Api().getApi(Api.rendezVousUrl(id)).then((value) {
           setState(() {
             if (value == 404) {
@@ -44,10 +45,13 @@ class _AppointListeAppState extends State<AppointListeApp> {
     for (int index = 0; index < rdv.length; index++) {
       Map unRdv = rdv[index];
       DateTime date = DateTime.parse('${unRdv["datePrevue"]}');
-      String centre = await Api()
-          .getApi(Api.centreSanteByIdUrl(unRdv["centresante"]))
-          .then((value) => value["libelle"]);
-      String heureDebut = unRdv["heureDebut"];
+      String centre = unRdv["centresante"] == null
+          ? "Abidjan"
+          : await Api()
+              .getApi(Api.centreSanteByIdUrl(unRdv["centresante"]))
+              .then((value) => value["libelle"]);
+      String heureDebut =
+          unRdv["heureDebut"] == null ? "08h00" : unRdv["heureDebut"];
       String heureFin =
           unRdv["heureFin"] == null ? unRdv["heureDebut"] : unRdv["heureFin"];
       var servicerecupere = unRdv["service"];
@@ -67,7 +71,7 @@ class _AppointListeAppState extends State<AppointListeApp> {
             DataCell(Text('${date.day}-${date.month}-${date.year}')),
             DataCell(Text('$service')),
             DataCell(Text('$centre')),
-            DataCell(Text('$heureDebut - $heureFin')),
+            DataCell(Text('$heureDebut')),
           ],
         ));
       }

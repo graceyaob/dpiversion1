@@ -43,8 +43,9 @@ class _FormulaireRdvPageState extends State<FormulaireRdvPage> {
     initialDate: DateTime.now(),
     firstDate: DateTime.now(),
     lastDate: DateTime(2050, 4, 4),
-    format: DateFormat('dd/MM/yyyy'),
+    format: DateFormat('dd-MM-yyyy'),
   );
+  DateFormat desiredFormat = DateFormat('yyyy-MM-dd');
 
   @override
   void initState() {
@@ -320,18 +321,19 @@ class _FormulaireRdvPageState extends State<FormulaireRdvPage> {
                 disable: false,
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
+                    String formattedDate = desiredFormat.format(date!);
                     Map body = {
-                      "datePrevue": date.toString(),
+                      "datePrevue": formattedDate,
                       "heureDebut": "08:58",
-                      "heureFin": "09:01",
                       "priorite": "N",
                       "typeRDV": "N",
                       "motif": "test",
                       "commentaire": "test",
-                      "rendez-vous": false,
+                      "rendezvous": false,
                       "patient": idPatient,
                       "medecin": idmedecin,
                       "service": idService,
+                      "centresante": idCentreSante
                     };
 
                     sortir = await Api().postApiDeux(Api.postRdv(), body);
@@ -342,7 +344,7 @@ class _FormulaireRdvPageState extends State<FormulaireRdvPage> {
                           context: context,
                           builder: (BuildContext) {
                             return AlertDialog(
-                              content: Text("N° de la facture:$data "),
+                              content: Text("${data!["messages"]}"),
                               actions: [
                                 Row(
                                   mainAxisAlignment:

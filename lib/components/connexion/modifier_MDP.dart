@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:dpiversion1/components/button.dart';
 import 'package:dpiversion1/utils/config.dart';
 import 'package:flutter/material.dart';
@@ -7,10 +9,10 @@ import '../../data/api/api.dart';
 import '../../data/database/config.dart';
 import '../../data/models/models_api.dart';
 import '../../data/models/models_database.dart';
-import '../../utils/chiffrer.dart';
 
 class LoginModif extends StatefulWidget {
-  const LoginModif({super.key});
+  LoginModif({super.key, required this.acceuil});
+  bool acceuil = true;
 
   @override
   State<LoginModif> createState() => _LoginModifState();
@@ -22,7 +24,9 @@ class _LoginModifState extends State<LoginModif> {
 
   final _configPasswordController = TextEditingController();
   final _ancienPassWordController = TextEditingController();
-  bool osbcurePass = true;
+  bool osbcurePass1 = true;
+  bool osbcurePass2 = true;
+  bool osbcurePass3 = true;
   bool isLoading = false;
   Map data = {};
   String ancienPassword = '';
@@ -70,18 +74,36 @@ class _LoginModifState extends State<LoginModif> {
                         _ancienPassWordController,
                         "Ancien mot de passe",
                         "Entrer l'ancien mot de passe",
+                        osbcurePass1,
+                        (bool value) {
+                          setState(() {
+                            osbcurePass1 = value;
+                          });
+                        },
                       ),
                       Config.spaceSmall,
                       password(
                         _nouveauPasswordController,
                         "Nouveau mot de passe",
                         "Entrer le nouveau mot de passe",
+                        osbcurePass2,
+                        (bool value) {
+                          setState(() {
+                            osbcurePass2 = value;
+                          });
+                        },
                       ),
                       Config.spaceSmall,
                       password(
                         _configPasswordController,
                         "Confirmation du mot de passe",
                         "Confirmer le mot de passe",
+                        osbcurePass3,
+                        (bool value) {
+                          setState(() {
+                            osbcurePass3 = value;
+                          });
+                        },
                       ),
                       Config.spaceMeduim,
 
@@ -132,8 +154,11 @@ class _LoginModifState extends State<LoginModif> {
                                   isLoading = false;
                                 });
                                 // ignore: use_build_context_synchronously
-                                Navigator.of(context)
-                                    .pushReplacementNamed("modifInfo");
+                                widget.acceuil
+                                    ? Navigator.of(context)
+                                        .pushReplacementNamed("modifInfo")
+                                    : Navigator.of(context)
+                                        .pushReplacementNamed("profil");
                               } else {
                                 setState(() {
                                   isLoading = false;
@@ -144,7 +169,11 @@ class _LoginModifState extends State<LoginModif> {
                               //Navigator.of(context).pushNamed("modifInfo");
                             }
                           } else {
-                            showAlertDialog(context, "Ancien message invalide");
+                            setState(() {
+                              isLoading = false;
+                            });
+                            showAlertDialog(
+                                context, "Ancien mot de passe invalide");
                           }
                         },
                         isload: isLoading,
@@ -158,22 +187,35 @@ class _LoginModifState extends State<LoginModif> {
         )));
   }
 
-  Widget password(
-      TextEditingController controller, String label, String hintText) {
+  Widget password(TextEditingController controller, String label,
+      String hintText, bool vue, void Function(bool) onToggleVisibility) {
     return TextFormField(
       controller: controller,
       keyboardType: TextInputType.visiblePassword,
-      obscureText: osbcurePass,
+      obscureText: vue,
       cursorColor: Colors.black12,
       decoration: InputDecoration(
-        border: Config.outLinedBorder,
-        focusedBorder: Config.focusBorder,
-        errorBorder: Config.errorBorder,
-        enabledBorder: Config.outLinedBorder,
-        hintText: hintText,
-        labelText: label,
-        alignLabelWithHint: true,
-      ),
+          border: Config.outLinedBorder,
+          focusedBorder: Config.focusBorder,
+          errorBorder: Config.errorBorder,
+          enabledBorder: Config.outLinedBorder,
+          hintText: hintText,
+          labelText: label,
+          alignLabelWithHint: true,
+          suffixIcon: IconButton(
+            onPressed: () {
+              onToggleVisibility(!vue);
+            },
+            icon: vue
+                ? const Icon(
+                    Icons.visibility_off_outlined,
+                    color: Colors.black38,
+                  )
+                : const Icon(
+                    Icons.visibility_outlined,
+                    color: Config.couleurPrincipale,
+                  ),
+          )),
       validator: _validateField,
     );
   }

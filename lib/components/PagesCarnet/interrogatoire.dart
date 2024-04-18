@@ -53,10 +53,13 @@ class _InterrogatoireState extends State<Interrogatoire> {
         chargement = true;
 
         histoire = [
-          consultation[0]["motif"],
-          consultation[0]["autres_antecedents_medicaux"],
-          consultation[0]["autres_antecedents_chirurgicaux"],
-          consultation[0]["autres_antecedents_gyneco_obstetricaux"],
+          consultation[0]["motif"] ?? "Aucun symptomes",
+          consultation[0]["autres_antecedents_medicaux"] ??
+              "Auncun antecedent médical",
+          consultation[0]["autres_antecedents_chirurgicaux"] ??
+              "Aucun antécedent chirurgical",
+          consultation[0]["autres_antecedents_gyneco_obstetricaux"] ??
+              "Aucun antécedent gynécologique",
           "demander à MAMADy",
         ];
       });

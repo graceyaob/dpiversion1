@@ -13,6 +13,7 @@ import 'package:dpiversion1/pages/modifInfo.dart';
 import 'package:dpiversion1/pages/pageRecu.dart';
 import 'package:dpiversion1/pages/paiementEnligne.dart';
 import 'package:dpiversion1/pages/plusrendezvous.dart';
+import 'package:dpiversion1/pages/profil.dart';
 import 'package:dpiversion1/pages/rendezVous.dart';
 import 'package:dpiversion1/utils/config.dart';
 import 'package:flutter/material.dart';
@@ -66,8 +67,16 @@ class MyApp extends StatelessWidget {
               visibility: true,
             ),
         'main': (context) => const ContainerApp(),
-        'modifier': (context) => const LoginModif(),
-        'modifInfo': (context) => const ModiInfo(),
+        'modifier': (context) => LoginModif(
+              acceuil: bool.parse(
+                  ModalRoute.of(context)?.settings.arguments.toString() ??
+                      'true'),
+            ),
+        'modifInfo': (context) => ModiInfo(
+              acceuil: bool.parse(
+                  ModalRoute.of(context)?.settings.arguments.toString() ??
+                      'true'),
+            ),
         'prdv': (context) => const FormulaireRdvPage(),
         'calrdv': (context) => const PriseRdv(),
         'consultation': (context) => const ConsultationPage(),
@@ -83,7 +92,8 @@ class MyApp extends StatelessWidget {
               payementeffectue: false,
             ),*/
         "punrdv": (context) => const AppointplusPage(),
-        "info": (context) => NavBar()
+        "info": (context) => const NavBar(),
+        "profil": (context) => const Profil(),
       },
     );
   }

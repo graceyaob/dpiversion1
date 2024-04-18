@@ -9,9 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
 class ModiInfo extends StatefulWidget {
-  const ModiInfo({
-    super.key,
-  });
+  ModiInfo({super.key, required this.acceuil});
+  bool acceuil;
 
   @override
   State<ModiInfo> createState() => _ModiInfoState();
@@ -144,7 +143,11 @@ class _ModiInfoState extends State<ModiInfo> {
                           setState(() {
                             isLoading = false;
                           });
-                          Navigator.of(context).pushReplacementNamed("main");
+                          widget.acceuil
+                              ? Navigator.of(context)
+                                  .pushReplacementNamed("main")
+                              : Navigator.of(context)
+                                  .pushReplacementNamed("profil");
                         } else {
                           setState(() {
                             isLoading = false;

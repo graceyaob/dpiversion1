@@ -145,9 +145,11 @@ Future<List<Appointment>> getAppointments() async {
     DateTime endtime = DateFormat('HH:mm:ss').parse(heureFin);
     startime = DateTime(rdv.year, rdv.month, rdv.day, startime.hour,
         startime.minute, startime.second);
-    final String centre = await Api()
-        .getApi(Api.centreSanteByIdUrl(unRdv["centresante"]))
-        .then((value) => value["libelle"]);
+    final String centre = unRdv["centresante"] == null
+        ? "Abidjan"
+        : await Api()
+            .getApi(Api.centreSanteByIdUrl(unRdv["centresante"]))
+            .then((value) => value["libelle"]);
 
     final servicerecupere = unRdv["service"];
     String service = "";
@@ -163,8 +165,7 @@ Future<List<Appointment>> getAppointments() async {
       rdvs.add(Appointment(
           startTime: startime,
           endTime: endtime,
-          subject:
-              'rendez-vous en $service à $centre de $heureDebut  - $heureFin',
+          subject: 'rendez-vous à $heureDebut en $service à $centre   ',
           color: Colors.blue));
     }
   }

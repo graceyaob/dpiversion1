@@ -1,10 +1,8 @@
 import 'package:dpiversion1/pages/carnet.dart';
 import 'package:dpiversion1/pages/consultation.dart';
 import 'package:dpiversion1/pages/home.dart';
-import 'package:dpiversion1/pages/pageRecu.dart';
 import 'package:dpiversion1/pages/profil.dart';
 import 'package:dpiversion1/pages/rendezVous.dart';
-import 'package:dpiversion1/utils/config.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

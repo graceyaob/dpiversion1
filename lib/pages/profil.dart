@@ -46,12 +46,13 @@ class _ProfilState extends State<Profil> {
               onSelected: (String value) {
                 // Mettez ici le code à exécuter lorsque l'élément du menu est sélectionné
                 if (value == "Mdp") {
-                  Navigator.of(context).pushNamed("modifier");
+                  Navigator.of(context).pushNamed("modifier", arguments: false);
                 } else {
                   if (value == "deconnexion") {
                     Navigator.of(context).pushNamed("login");
                   } else {
-                    Navigator.of(context).pushNamed("modifInfo");
+                    Navigator.of(context)
+                        .pushNamed("modifInfo", arguments: false);
                   }
                 }
                 print('Élément sélectionné: $value');
